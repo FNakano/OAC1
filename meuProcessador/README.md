@@ -108,10 +108,10 @@ Seria "só" fazer a carga paralela do endereço contido na instrução para dent
 
 | Carga Paralela | Estado atual | Count | Load | Próximo Estado |
 | --- | --- | --- | --- | --- |
-| X | $`Q_i`$ | 0 | 0 | Q<sub>i</sub> |
-| P | $`Q_i`$ | 0 | 1 | P |
-| X | $`Q_i`$ | 1 | 0 | Q<sub>i</sub>+1 |
-| X | $`Q_i`$ | 1 | 1 | Q<sub>i</sub>-1 |
+| X | Q<sub>i</sub> | 0 | 0 | Q<sub>i</sub> |
+| P | Q<sub>i</sub> | 0 | 1 | P |
+| X | Q<sub>i</sub> | 1 | 0 | Q<sub>i</sub>+1 |
+| X | Q<sub>i</sub> | 1 | 1 | Q<sub>i</sub>-1 |
 
 **nota**: P é o sinal presente na entrada paralela. X significa que não é usado. O uso de X instruções é outro. Tenha cuidado!
 
