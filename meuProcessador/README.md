@@ -155,6 +155,8 @@ Resolvido!!! [circuito no logisim](CarregaArmazenaSalta3.circ)
 
 Formato da instrução: Palavra de 16 bits com os quatro primeiros armazenando o OpCode e os doze seguintes armazenando endereço (de operando ou alvo para salto).
 
+![instrução na memória](CodeCogsEqn.gif)
+
 <!-- $`\overbrace{bbbb}^{OpCode}\underbrace{bbbbbbbbbbb}_{X}`$ -->
 
 | OpCode  | Mnemônico | Descrição |
