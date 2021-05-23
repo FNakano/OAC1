@@ -26,7 +26,6 @@ Para TRA: ![alt text](CodeCogsEqn3.gif)
 
 <!-- $`\overbrace{bbbb}^{OpCode}\underbrace{bb}_{destino}\overbrace{bb}^{origem}\underbrace{bbb1bbbb}_{transfere}`$ -->
 
-Para TRA: ![instrução na memória](CodeCogsEqn.gif)
 
 | OpCode  | Mnemônico | Descrição |
 | ------  | --------- | --------- |
