@@ -40,7 +40,7 @@ Motivo: Este é o funcionamento da busca de instrução quando não há desvio.
 
 [Circuito em logisim](carregaInstrucao.circ)
 
-![Tela do simulador apresentando o circuito.](Captura%20de%20tela%20de%202021-05-04%2014-14-55.png)
+![Tela do simulador apresentando o circuito.](Captura%20de%20tela%20de%202022-05-03%2010-03-29.png)
 
 ### Máquina que permite outras operações.
 
