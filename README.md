@@ -8,7 +8,7 @@ Resposta curiosa do DaVinci (versão do GPT-3) sobre qual foi o primeiro computa
 
 Tentei fazer as mesmas perguntas no dia seguinte mas a conversa seguiu por um outro caminho pois as respostas mudaram.
 
-![](Tela-2023-03-03%2016-21-59.png)
+![](Tela-2023-03-03%2016-48-11.png)
 
 É interessante: as respostas melhoraram mas não detecta contradições.
 
