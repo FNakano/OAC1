@@ -1,10 +1,10 @@
 Resposta curiosa do DaVinci (versão do GPT-3) sobre qual foi o primeiro computador:
 	
-![](Tela-2023-03-02 17-33-49.png)
+![](Tela-2023-03-02%2017-33-49.png)
 
-![](Tela-2023-03-02 17-38-06.png)
+![](Tela-2023-03-02%2017-38-06.png)
 
-![](Tela-2023-03-02 19-16-05.png)
+![](Tela-2023-03-02%2019-16-05.png)
 
 Material Adicional da disciplina OAC-1.
 
