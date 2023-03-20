@@ -42,11 +42,18 @@ Transistores (https://pt.wikipedia.org/wiki/Trans%C3%ADstor) também podem ser u
 
 Existem muitos tipos de transistores que diferem nos encapsulamentos e nos princípios de operação. Indo direto ao ponto, os transistores usados em processadores, memórias, ... são MOSFETs, de Metal-Oxide Silicon Field Effect Transistor. Suas características físicas e elétricas e a melhor adequação dos processos de fabricação são as vantagens que provocaram a escolha dessa tecnologia.
 
+
+
 MOSFETs "individuais" são componentes proporcionalmente caros e menos comuns que transistores bipolares (BJT). 
 
 Há MOSFET de canal P e de canal N. Os terminais de um MOSFET são *Fonte*, *Dreno* e *Porta*. 
 
 Há BJT PNP e NPN. Os terminais de um BJT são *Emissor*, *Coletor* e *Base*.
+BC548 e BC558 são BJTs. O primeiro é NPN e o segundo é PNP.
+
+![](./photo1679354115.jpeg)
+
+Os símbolos dos MOSFET e dos BJT.
 
 ![](./photo1679342357.jpeg)
 
