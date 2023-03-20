@@ -62,11 +62,12 @@ https://www.tinkercad.com/things/6VaiTyRdRat-glorious-bruticus-luulia/editel?ten
 
 ## Inversor (porta lógica)
 
-![](./photo1679349732.jpeg)
+<img src="photo1679349751.jpeg" style="transform:rotate(270deg);">
+
 
 ## Célula de memória
 
-![](./photo1679349751.jpeg)
+<img src="photo1679349732.jpeg" style="transform:rotate(270deg);">
 
 
 Inspiração para circuito de endereçamento: https://www.researchgate.net/figure/Circuit-diagram-of-an-optimized-4H-SiC-4T-SRAM-cell-The-optimized-cell-operates-on-a_fig1_314296600
