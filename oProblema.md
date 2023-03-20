@@ -62,12 +62,16 @@ https://www.tinkercad.com/things/6VaiTyRdRat-glorious-bruticus-luulia/editel?ten
 
 ## Inversor (porta lógica)
 
-<img src="photo1679349751.jpeg" style="transform:rotate(270deg);">
+
+![](./photo1679353103.jpeg)
 
 
 ## Célula de memória
 
-<img src="photo1679349732.jpeg" style="transform:rotate(270deg);">
+
+![](./photo1679352856.jpeg)
 
 
 Inspiração para circuito de endereçamento: https://www.researchgate.net/figure/Circuit-diagram-of-an-optimized-4H-SiC-4T-SRAM-cell-The-optimized-cell-operates-on-a_fig1_314296600
+
+O circuito com BJT tem uma não conformidade pois as linhas de bit são somente para escrita na célula de memória. A linha de bit da célula de memória costuma ser bidirecional, algo que fica claro no diagrama do livro.
