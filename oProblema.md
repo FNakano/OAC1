@@ -24,6 +24,8 @@ Um LED é um diodo. *Light Emitting Diode* = LED. Fisica e eletricamente bastant
 
 Conectados corretamente, é possível dizer que um LED é equivalente a uma lâmpada. Por exemplo, ambas acendem quando passa por elas corrente suficiente. 
 
+*Apresentar circuito para acendimento de lâmpada e de LED*.
+
 ## Chaves (interruptores)
 
 São componentes que interrompem a passagem de corrente.
@@ -65,13 +67,57 @@ https://www.tinkercad.com/things/6VaiTyRdRat-glorious-bruticus-luulia/editel?ten
 
 **nota**: Em livros em que o tema principal não são os circuitos, seus diagramas podem estar simplificados, por exemplo, omitindo componentes como resistores. Às vezes a ausência do resistor resulta em um curto-circuito. Abstratamente, nada ocorre, a idéia até é transmitida corretamente. Na prática, em determinadas condições, o circuito queima.
 
-#### Transistor como chave
+#### BJT como chave
 
+Manuais dos BJT que usei (links externos):
+	- [BC548](https://www.mouser.com/datasheet/2/149/BC547-190204.pdf)
+	- [BC558](https://www.onsemi.com/pdf/datasheet/bc556b-d.pdf)
+	- [BC639](https://www.onsemi.com/pdf/datasheet/bc637-d.pdf)
+	- [BC640](https://www.onsemi.com/pdf/datasheet/bc640-d.pdf)
+
+*Apresentar modificação do circuito para acendimento de lâmpada e de LED incluindo transistor como chave - tanto NPN quanto PNP - e explicar funcionamento do circuito*.
+
+Num transistor de junção, quando a corrente de coletor (Ic) é "significativa", a tensão entre base e emissor é da ordem de 0,7V para transistor NPN e -0,7V para transistor PNP (em ambos o diodo base-emissor precisa estar diretamente polarizado para a corrente de coletor passar). Numa simplificação prática, se |Vbe|<0,7 então Ic=0. Se |Vbe|>=0,7 então Ic=Beta*Ib. Esta última relação pode ser importante para calcular os valores dos resistores.
+
+Para o cálculo do valor do resistor de base é necessário considerar que, em geral, um diodo não pode ser ligado diretamente à bateria e estar diretamente polarizado pois a corrente que passa por ele é muito alta. Por consequência, o diodo esquenta e acaba queimando. É idêntico a ligar um LED direto nos 5V da porta USB. 
+
+*Explicar como um transistor pode ser queimado nas situações em que será colocado neste experimento e, consequentemente, justificar a presença de resistores limitadores de corrente*.
+
+#### MOSFET como chave
+
+2023-03-28-121505 .... uma historinha antes...
+
+Tenho quase nenhuma experiência prática com FETs e MOSFETs.
+
+Comecei tentando entender os símbolos do livro - um certo sucesso nisso: diferenciar MOSFET de canal P de MOSFET de canal N.
+
+Para aumentar o detalhamento, procurei especificações de alguns modelos de MOSFET. Vi valores máximos suportados pelos componentes e curvas de funcionamento. Embora toda a informação que eu desejava estivesse ali, estava em uma linguagem pouco conveniente na ocasião. Então fui atrás de modelos matemáticos do MOSFET. Encontrei estas apresentações: https://www.ece.mcmaster.ca/~mbakr/ece2ei4/Lecture16_Web.pdf , https://inst.eecs.berkeley.edu/~ee105/fa05/handouts/discussions/Discussion5.pdf. As equações eram mais complicadas do que eu desejava, a referência de berkeley mostrava duas regiões de operação (não-saturado, saturado) e três modos de operação (cut-off, linear e saturação) e, na referência de mcmaster mencionava-se MOSFET de modo enriquecimento (enhancement) e de modo depleção (depletion); estes modos não têm nada a ver com os modos de operação. Então fui atrás de desatar esse nó e, talvez, encontrar um modelo mais simples.
+
+Nesse contexto (partindo de quase zero, procurando como um componente funciona, sem grande detalhamento), com alguma precaução, Wikipedia é muito útil. Neste link: https://en.wikipedia.org/wiki/Depletion_and_enhancement_modes , explica-se que "modo" enriquecimento e "modo" depleção referem-se a dois tipos de componente (em contraposição a, por exemplo, um componente que funciona de dois modos diferentes). No modo enriquecimento, quando Vgs=0V não há canal, consequentemente Id=0mA, à medida que Vgs aumenta (à semelhança de Vbe), o canal se forma e Id vai aumentando. No modo depleção, quando Vgs=0 há canal (a construção é diferente), logo, Id>0. Vgs precisa ser menor que zero para ir "fechando" o canal (Id vai diminuindo) e, quando suficientemente negativo, Id=0.
+
+Embora tenha "ganho" um modelo qualitativo, criei uma nova questão: "em circuitos digitais, qual componente é usado?"
+	
+A resposta que aceitei está em um artigo publicado pela ACM: https://dl.acm.org/doi/fullHtml/10.1145/3453143 . Neste está escrito "Enhancement mode is desirable for digital circuit and processor implementation, ...". Portanto, vou aceitar que os transistores que me interessam são os de modo enriquecimento. Acho que o artigo contém um modelo que eu possa usar.
+
+Claro que, nessa exploração, passei por muitas outras referências:
+	- https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture25-MOSTransQuantitativeId-Vd-Vg.pdf (modelo matemático extenso e alguns diagramas)
+	- https://home.kku.ac.th/rujchai/analog/FET.pdf (Comparação com BJT, diagramas muito bonitos, slide 16 tem uma analogia entre Ic=betaIb e Id=Idss(1-Vgs/Vp)^2 - acho que é esta a equação que preciso)
+	- https://electronics.stackexchange.com/questions/222863/relationship-between-vds-and-vgs-mosfet
+	- https://techweb.rohm.com/product/power-device/si/si-basic/5277/
+	- https://en.wikipedia.org/wiki/MOSFET_applications (em que MOSFETs são usados)
+	- https://en.wikipedia.org/wiki/Depletion-load_NMOS_logic (resistores em circuitos integrados NMOS)
+	- https://www.quora.com/Why-is-enhancement-MOSFET-preferred-over-depletion-MOSFET-for-switching-purposes
+	
+
+
+
+ 
 ## Inversor (porta lógica)
 
 
 ![](./photo1679353103.jpeg)
 
+*Apresentar combinação dos circuitos de transistor como chave - NPN e PNP - que resulta do inversor e explicar funcionamento do circuito*.
 
 ## Célula de memória
 
