@@ -100,13 +100,14 @@ Embora tenha "ganho" um modelo qualitativo, criei uma nova questão: "em circuit
 A resposta que aceitei está em um artigo publicado pela ACM: https://dl.acm.org/doi/fullHtml/10.1145/3453143 . Neste está escrito "Enhancement mode is desirable for digital circuit and processor implementation, ...". Portanto, vou aceitar que os transistores que me interessam são os de modo enriquecimento. Acho que o artigo contém um modelo que eu possa usar.
 
 Claro que, nessa exploração, passei por muitas outras referências:
-	- https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture25-MOSTransQuantitativeId-Vd-Vg.pdf (modelo matemático extenso e alguns diagramas)
-	- https://home.kku.ac.th/rujchai/analog/FET.pdf (Comparação com BJT, diagramas muito bonitos, slide 16 tem uma analogia entre Ic=betaIb e Id=Idss(1-Vgs/Vp)^2 - acho que é esta a equação que preciso)
-	- https://electronics.stackexchange.com/questions/222863/relationship-between-vds-and-vgs-mosfet
-	- https://techweb.rohm.com/product/power-device/si/si-basic/5277/
-	- https://en.wikipedia.org/wiki/MOSFET_applications (em que MOSFETs são usados)
-	- https://en.wikipedia.org/wiki/Depletion-load_NMOS_logic (resistores em circuitos integrados NMOS)
-	- https://www.quora.com/Why-is-enhancement-MOSFET-preferred-over-depletion-MOSFET-for-switching-purposes
+
+- https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture25-MOSTransQuantitativeId-Vd-Vg.pdf (modelo matemático extenso e alguns diagramas)
+- https://home.kku.ac.th/rujchai/analog/FET.pdf (Comparação com BJT, diagramas muito bonitos, slide 16 tem uma analogia entre Ic=betaIb e Id=Idss(1-Vgs/Vp)^2 - acho que é esta a equação que preciso)
+- https://electronics.stackexchange.com/questions/222863/relationship-between-vds-and-vgs-mosfet
+- https://techweb.rohm.com/product/power-device/si/si-basic/5277/
+- https://en.wikipedia.org/wiki/MOSFET_applications (em que MOSFETs são usados)
+- https://en.wikipedia.org/wiki/Depletion-load_NMOS_logic (resistores em circuitos integrados NMOS)
+- https://www.quora.com/Why-is-enhancement-MOSFET-preferred-over-depletion-MOSFET-for-switching-purposes
 	
 
 
