@@ -22,13 +22,15 @@ Uma lâmpada de filamento (lâmpada de Edison) é, fisica e eletricamente, muito
 
 Um LED é um diodo. *Light Emitting Diode* = LED. Fisica e eletricamente bastante distinto de um resistor. Um diodo é composto por dois "blocos" de semicondutor com dopagens diferentes. A propriedade considerada mais importante num diodo é a passagem da corrente elétrica em uma só direção. A emissão de (e sensibilidade a) luz é uma propriedade "colateral", descoberta depois, e muito usada atualmente.
 
-Conectados corretamente, é possível dizer que um LED é equivalente a uma lâmpada. Por exemplo, ambas acendem quando passa por elas corrente suficiente. 
+Conectados corretamente, é possível dizer que um LED é equivalente a uma lâmpada: ambas acendem quando passa por elas corrente suficiente na direção correta. 
 
-*Apresentar circuito para acendimento de lâmpada e de LED*.
+![](./LampadaeLED2023-04-11-11-18-02.png)
+
 
 ## Chaves (interruptores)
 
-São componentes que interrompem a passagem de corrente.
+São componentes que permitem interromper (ou não) a passagem de corrente. Interromper a passagem de corrente pode ser feito em qualquer parte do circuito. No caso do circuito a seguir, escolheu-se colocar um interruptor entre o polo negativo da bateria e o cátodo do LED.
+ 
 
 ### Os circuitos do vestibular (ou seria do ENEM?)
 
@@ -36,7 +38,7 @@ Geralmente não se explica além dos interruptores mecânicos o que induz associ
 
 ### Indo um pouco além do vestibular
 
-Interruptores de acionamento elétrico (https://en.wikipedia.org/wiki/Relay) existem há mais de dois séculos. O relé é um componente eletromecânico.
+Interruptores de acionamento elétrico, como relés (https://en.wikipedia.org/wiki/Relay), existem há mais de dois séculos. O relé é um componente eletromecânico.
 
 Válvulas termiônicas (https://en.wikipedia.org/wiki/Vacuum_tube), um *spinoff* das lâmpadas, também podem ser usadas como interruptores de acionamento elétrico. Válvulas usam vácuo ou gases ionizáveis em seu interior.
 
@@ -46,9 +48,9 @@ Existem muitos tipos de transistores que diferem nos encapsulamentos e nos princ
 
 
 
-MOSFETs "individuais" são componentes proporcionalmente caros e menos comuns que transistores bipolares (BJT). 
+MOSFETs "individualmente encapsulados" são componentes proporcionalmente caros e menos comuns que transistores bipolares (BJT). 
 
-Há MOSFET de canal P e de canal N. Os terminais de um MOSFET são *Fonte*, *Dreno* e *Porta*. 
+Há MOSFET de canal P e de canal N. Os terminais de um MOSFET são *Fonte (Source)*, *Dreno (Drain)* e *Porta (Gate)*. 
 
 Há BJT PNP e NPN. Os terminais de um BJT são *Emissor*, *Coletor* e *Base*.
 BC548 e BC558 são BJTs. O primeiro é NPN e o segundo é PNP.
@@ -65,7 +67,7 @@ Nos usos a seguir um MOSFET de canal P equivale a um BJT PNP e um MOSFET de cana
 
 https://www.tinkercad.com/things/6VaiTyRdRat-glorious-bruticus-luulia/editel?tenant=circuits
 
-**nota**: Em livros em que o tema principal não são os circuitos, seus diagramas podem estar simplificados, por exemplo, omitindo componentes como resistores. Às vezes a ausência do resistor resulta em um curto-circuito. Abstratamente, nada ocorre, a idéia até é transmitida corretamente. Na prática, em determinadas condições, o circuito queima.
+**nota**: Em livros em que o tema principal não são os circuitos, seus diagramas podem estar simplificados, por exemplo, omitindo componentes como resistores. Às vezes a ausência do resistor resulta em um curto-circuito. Neste caso, em um modelo abstrato, como um simulador, nada ocorre, a idéia até é transmitida corretamente. Na prática, em determinadas condições, o circuito queima.
 
 #### BJT como chave
 
@@ -108,7 +110,10 @@ Claro que, nessa exploração, passei por muitas outras referências:
 - https://en.wikipedia.org/wiki/MOSFET_applications (em que MOSFETs são usados)
 - https://en.wikipedia.org/wiki/Depletion-load_NMOS_logic (resistores em circuitos integrados NMOS)
 - https://www.quora.com/Why-is-enhancement-MOSFET-preferred-over-depletion-MOSFET-for-switching-purposes
-	
+- https://www.electronics-tutorials.ws/transistor/tran_7.html MOSFET como chave	
+- https://www.youtube.com/watch?v=8LXPcJD6hEA&t=1001s como funciona um Electronic Speed Controller (para motores DC sem escovas, como os de drones)
+- https://en.wikipedia.org/wiki/Brushless_DC_electric_motor sobre motor sem escovas
+
 
 
 
