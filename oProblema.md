@@ -8,7 +8,7 @@ Fonte: STALLINGS, Computer Organization and Architectures, 10thEd.
 
 Os circuitos são compostos por MOSFETs e, no caso do quadro (b), podem até ser agrupados em um flip-flop tipo RS e lógica de seleção, ou em dois inversores e lógica de seleção.
 
-Flip-flops são apresentados na seção 11.4. Isto é feito a partir de portas lógicas, o que é tradicional, mas os circuitos das portas lógicas a partir de MOSFETs não é apresentado. O funcionamento e a estrutura física dos MOSFETs também não é apresentado, embora o MOSFET de porta flutuante seja mostrado (livro, figura 5.15), talvez por não ser um componente tradicional. Diagramas, como o do esquemático de partes da memória FLASH (livro, figura 5.16), mostram os MOSFETs de porta flutuante representados pelos símbolos dos MOSFETs tradicionais.
+Flip-flops são apresentados na seção 11.4. Isto é feito a partir de portas lógicas, o que é tradicional, mas os circuitos das portas lógicas a partir de MOSFETs não é apresentado. O funcionamento e a estrutura física dos MOSFETs também não são apresentados, embora o MOSFET de porta flutuante seja mostrado (livro, figura 5.15), talvez por não ser um componente tradicional. Diagramas, como o do esquemático de partes da memória FLASH (livro, figura 5.16), mostram os MOSFETs de porta flutuante representados pelos símbolos dos MOSFETs tradicionais.
 
 Acredito que isto justifique a elaboração de um texto que apresente algo sobre eletricidade, talvez, a partir do acender de uma lâmpada ou LED até a construção de uma porta lógica ou de uma célula de memória.
 
@@ -18,19 +18,21 @@ Acredito que isto justifique a elaboração de um texto que apresente algo sobre
 
 ## Lâmpada comparada ao LED
  
-Uma lâmpada de filamento (lâmpada de Edison) é, fisica e eletricamente, muito parecida com um resistor. É constituída por um filamento cujas extremidades são conectadas aos polos de uma fonte de energia. O aquecimento do filamento faz com que ele emita luz. Este mesmo aquecimento faz o material do filamento reagir com o ar (oxidação/combustão), o que modifica a composição do filamento, geralmente, fazendo que ele pare de emitir luz.
+Uma lâmpada de filamento (lâmpada de Edison) é, fisica e eletricamente, muito parecida com um resistor. É constituída por um filamento cujas extremidades são conectadas aos polos de uma fonte de energia, isto faz o filamento aquecer. O aquecimento do filamento faz com que ele emita luz. Este mesmo aquecimento faz o material do filamento tanto derreter quanto reagir (oxidar/queimar) com o (pouco) ar dentro do bulbo. Em algum momento o filamento rompe e para de emitir luz.
 
 Um LED é um diodo. *Light Emitting Diode* = LED. Fisica e eletricamente bastante distinto de um resistor. Um diodo é composto por dois "blocos" de semicondutor com dopagens diferentes. A propriedade considerada mais importante num diodo é a passagem da corrente elétrica em uma só direção. A emissão de (e sensibilidade a) luz é uma propriedade "colateral", descoberta depois, e muito usada atualmente.
 
-Conectados corretamente, é possível dizer que um LED é equivalente a uma lâmpada: ambas acendem quando passa por elas corrente suficiente na direção correta. 
+Conectados corretamente, é possível dizer que um LED é equivalente a uma lâmpada: ambas acendem quando passa por elas corrente suficiente. 
 
 ![](./LampadaeLED2023-04-11-11-18-02.png)
 
 
 ## Chaves (interruptores)
 
-São componentes que permitem interromper (ou não) a passagem de corrente. Interromper a passagem de corrente pode ser feito em qualquer parte do circuito. No caso do circuito a seguir, escolheu-se colocar um interruptor entre o polo negativo da bateria e o cátodo do LED.
+São componentes que permitem interromper (ou não) a passagem de corrente. Interromper a passagem de corrente pode ser feito em qualquer parte do circuito. No circuito da foto abaixo, escolheu-se colocar um interruptor entre o polo negativo da bateria e o cátodo do LED.
  
+![](./Interruptor2023-04-12-15-21-43.png)
+
 
 ### Os circuitos do vestibular (ou seria do ENEM?)
 
@@ -53,6 +55,7 @@ MOSFETs "individualmente encapsulados" são componentes proporcionalmente caros 
 Há MOSFET de canal P e de canal N. Os terminais de um MOSFET são *Fonte (Source)*, *Dreno (Drain)* e *Porta (Gate)*. 
 
 Há BJT PNP e NPN. Os terminais de um BJT são *Emissor*, *Coletor* e *Base*.
+
 BC548 e BC558 são BJTs. O primeiro é NPN e o segundo é PNP.
 
 ![](./photo1679354115.jpeg)
@@ -69,23 +72,41 @@ https://www.tinkercad.com/things/6VaiTyRdRat-glorious-bruticus-luulia/editel?ten
 
 **nota**: Em livros em que o tema principal não são os circuitos, seus diagramas podem estar simplificados, por exemplo, omitindo componentes como resistores. Às vezes a ausência do resistor resulta em um curto-circuito. Neste caso, em um modelo abstrato, como um simulador, nada ocorre, a idéia até é transmitida corretamente. Na prática, em determinadas condições, o circuito queima.
 
-#### BJT como chave
+A seguir explicarei o uso de um BJT tipo NPN como chave. Esta explicação está baseada em modelos que descrevem o funcionamento do BJT. Mesmo não tendo procurado, tenho razoável certeza que existe um modelo que pode ser considerado o mais completo, e que deve ser razoavelmente complicado (muitas funções (regras) de muitas variáveis). A fim de não lidar com esse modelo complicado, recorrerei a diferentes simplificações desse modelo. Alguma cautela é necessária pois cada simplificação pode explicar bem um processo e não explicar, ou, explicar mal, outro processo. 
 
-Manuais dos BJT que usei (links externos):
+Alguns parâmetros desses modelos estão nos manuais dos BJT que usei (links externos):
 	- [BC548](https://www.mouser.com/datasheet/2/149/BC547-190204.pdf)
 	- [BC558](https://www.onsemi.com/pdf/datasheet/bc556b-d.pdf)
 	- [BC639](https://www.onsemi.com/pdf/datasheet/bc637-d.pdf)
 	- [BC640](https://www.onsemi.com/pdf/datasheet/bc640-d.pdf)
 
-*Apresentar modificação do circuito para acendimento de lâmpada e de LED incluindo transistor como chave - tanto NPN quanto PNP - e explicar funcionamento do circuito*.
+#### BJT como chave
 
-Num transistor de junção, quando a corrente de coletor (Ic) é "significativa", a tensão entre base e emissor é da ordem de 0,7V para transistor NPN e -0,7V para transistor PNP (em ambos o diodo base-emissor precisa estar diretamente polarizado para a corrente de coletor passar). Numa simplificação prática, se |Vbe|<0,7 então Ic=0. Se |Vbe|>=0,7 então Ic=Beta*Ib. Esta última relação pode ser importante para calcular os valores dos resistores.
+No circuito de acendimento do LED com interruptor, este pode ser substituído por um BJT do tipo NPN:
+
+![](./IntTran-2023-04-12-15-57-59.png)
+
+Usa-se *o transistor conduz* quando a corrente de coletor é a máxima possível e *o transistor não conduz* quando a corrente de coletor é a mínima possível. A máxima depende do restante do circuito. No exemplo, a corrente é suficiente para acender o LED. A mínima é ZERO, com corrente ZERO, o LED não acende.
+
+O transistor conduz, consequentemente o LED acenderá, se o ponto X for ligado ao positivo da bateria (usualmente corresponde ao nível lógico 1) e não conduz, consequentemente o LED ficará apagado, se o ponto X for deixado desconectado ou se for conectado ao negativo da bateria (usualmente corresponde ao nível lógico zero).
+
+O resistor RB é necessário para limitar tensão e corrente na base do transistor. Tensão e corrente excessivas farão o trasistor queimar.
+
+<!--- Num transistor de junção, quando a corrente de coletor (Ic) é "significativa", a tensão entre base e emissor é da ordem de 0,7V para transistor NPN e -0,7V para transistor PNP (em ambos o diodo base-emissor precisa estar diretamente polarizado para a corrente de coletor passar). Numa simplificação prática, se |Vbe|<0,7 então Ic=0. Se |Vbe|>=0,7 então Ic=Beta*Ib. Esta última relação pode ser importante para calcular os valores dos resistores.
 
 Para o cálculo do valor do resistor de base é necessário considerar que, em geral, um diodo não pode ser ligado diretamente à bateria e estar diretamente polarizado pois a corrente que passa por ele é muito alta. Por consequência, o diodo esquenta e acaba queimando. É idêntico a ligar um LED direto nos 5V da porta USB. 
 
 *Explicar como um transistor pode ser queimado nas situações em que será colocado neste experimento e, consequentemente, justificar a presença de resistores limitadores de corrente*.
 
-#### MOSFET como chave
+--->
+
+O circuito que chaveia do lado positivo da bateria, em geral, é implementado com um BJT do tipo PNP. O circuito resultante funciona, de certa forma, como um complementar do funcionamento do BJT NPN. ié: conectando o ponto Y ao negativo da bateria o transistor conduz, consequentemente o LED acende, deixando o ponto Y desconectado ou conectando-o ao positivo da bateria o transistor não conduz, consequentemente o LED não acende. 
+	
+/home/fabio/MeuGithub/OAC1/SimeTran-2023-04-12-16-11-09.png
+
+#### MOSFET como chave (a fazer)
+
+<!---
 
 2023-03-28-121505 .... uma historinha antes...
 
@@ -114,11 +135,11 @@ Claro que, nessa exploração, passei por muitas outras referências:
 - https://www.youtube.com/watch?v=8LXPcJD6hEA&t=1001s como funciona um Electronic Speed Controller (para motores DC sem escovas, como os de drones)
 - https://en.wikipedia.org/wiki/Brushless_DC_electric_motor sobre motor sem escovas
 
-
+--->
 
 
  
-## Inversor (porta lógica)
+## Inversor (porta lógica que implementa a função NOT)
 
 
 ![](./photo1679353103.jpeg)
