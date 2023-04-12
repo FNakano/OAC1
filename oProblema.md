@@ -102,7 +102,8 @@ Para o cálculo do valor do resistor de base é necessário considerar que, em g
 
 O circuito que chaveia do lado positivo da bateria, em geral, é implementado com um BJT do tipo PNP. O circuito resultante funciona, de certa forma, como um complementar do funcionamento do BJT NPN. ié: conectando o ponto Y ao negativo da bateria o transistor conduz, consequentemente o LED acende, deixando o ponto Y desconectado ou conectando-o ao positivo da bateria o transistor não conduz, consequentemente o LED não acende. 
 	
-/home/fabio/MeuGithub/OAC1/SimeTran-2023-04-12-16-11-09.png
+![](./SimeTran-2023-04-12-16-11-09.png)
+
 
 #### MOSFET como chave (a fazer)
 
