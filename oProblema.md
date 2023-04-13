@@ -86,9 +86,9 @@ No circuito de acendimento do LED com interruptor, este pode ser substituído po
 
 ![](./IntTran-2023-04-12-15-57-59.png)
 
-Usa-se *o transistor conduz* quando a corrente de coletor é a máxima possível e *o transistor não conduz* quando a corrente de coletor é a mínima possível. A máxima depende do restante do circuito. No exemplo, a corrente é suficiente para acender o LED. A mínima é ZERO, com corrente ZERO, o LED não acende.
+No contexto do uso de transistor como chave, usa-se *o transistor conduz* quando a corrente de coletor é a máxima possível. Destacando o que ocorre entre Coletor e Emissor, desprezando o que ocorre na Base, o transistor comporta-se como um resistor de **baixo** valor conectando Coletor e Emissor. Ainda no mesmo contexto, usa-se *o transistor não conduz* quando a corrente de coletor é a mínima possível. Destacando o que ocorre entre Coletor e Emissor, desprezando o que ocorre na Base, o transistor comporta-se como um resistor de **alto** valor conectando Coletor e Emissor. 
 
-O transistor conduz, consequentemente o LED acenderá, se o ponto X for ligado ao positivo da bateria (usualmente corresponde ao nível lógico 1) e não conduz, consequentemente o LED ficará apagado, se o ponto X for deixado desconectado ou se for conectado ao negativo da bateria (usualmente corresponde ao nível lógico zero).
+No circuito da imagem acima, se o ponto X for ligado ao positivo da bateria (usualmente correspondente ao nível lógico 1), o transistor conduz, consequentemente o LED acenderá., se o ponto X for deixado desconectado ou ligado ao negativo da bateria (usualmente corresponde ao nível lógico zero) o transistor não conduz, consequentemente o LED ficará apagado.
 
 O resistor RB é necessário para limitar tensão e corrente na base do transistor. Tensão e corrente excessivas farão o trasistor queimar.
 
@@ -104,6 +104,7 @@ O circuito que chaveia do lado positivo da bateria, em geral, é implementado co
 	
 ![](./SimeTran-2023-04-12-16-11-09.png)
 
+Outra diferença importante entre transistor e interruptor é que transistor deixa passar corrente num sentido e interruptor deixa passar corrente nos dois sentidos.
 
 #### MOSFET como chave (a fazer)
 
@@ -142,22 +143,184 @@ Claro que, nessa exploração, passei por muitas outras referências:
  
 ## Inversor (porta lógica que implementa a função NOT)
 
+Nota-se que no circuito com transistor NPN, pelo funcionamento do transistor, o Coletor ou está nível lógico zero ou está desconectado. No circuito com transistor PNP, o Coletor ou está em nível lógico um ou está desconectado. Num inversor (porta lógica NOT), em princípio, deseja-se que sua saída seja ou nível lógico um ou nível lógico zero. É possível conseguir esse funcionamento combinando os dois circuitos de chave (nota: é possível obter esse funcionamento de outras formas). Essa combinação de transistores complementares é mostrada na imagem abaixo, tanto com MOSFETs (esquerda) quanto com BJTs (direita).
 
 ![](./photo1679353103.jpeg)
 
-*Apresentar combinação dos circuitos de transistor como chave - NPN e PNP - que resulta do inversor e explicar funcionamento do circuito*.
+Nos dois inversores, quando o ponto A é conectado ao positivo da bateria (nível lógico um), o ponto F vai a nível lógico zero, quando o ponto A é conectado ao negativo da bateria (nível lógico zero), o ponto F vai a nível lógico um. 
+
+Acredito que isto ajude a esclarecer que as funções lógicas, tratadas em disciplinas como Matemática Discreta, podem ser implementadas em circuitos elétricos (eletrônicos). Isto permite projetar circuitos com o objetivo de implementar (executar) alguma (determinada) função lógica. 
+
+**nota**: por completude, convém mostrar o circuito a transistores que implementa a porta NAND, como apresentado em https://en.wikipedia.org/wiki/NAND_gate#Implementations
+ 
+**nota**: a partir de portas NAND é possível construir portas NOT, consequentemente portas AND e portas OR (pode ser demonstrado aplicando o teorema de DeMorgan, por exemplo), o que é mostrado no livro, capítulo 11 e no verbete da wikipedia https://en.wikipedia.org/wiki/NAND_gate#Functional_completeness
 
 ## Célula de memória
 
+No livro a célula de memória é mostrada no capítulo 5 e é explicada em detalhes no capítulo 11. A explicação do capítulo 11 segue uma sequência que parece ser consenso nos livros: parte explicando o que é um flip-flop, apresenta o flip-flop RS (implementado com portas lógicas), e segue. Ocorre que ou eu não encontrei ou não há no livro a implementação do flip-flop RS com transistores, que é a usada no capítulo 5.
+
+**nota**: Desperta curiosidade que em uma busca de dez minutos por *flip flop rs complementary bjt* com Google não traz esse tal circuito como resultado mais provável. Os resultados mais prováveis mostram flip flops rs implementados com BJTs mas não complementares. Por exemplo: https://en.wikipedia.org/wiki/Flip-flop_(electronics)
+
+**nota**: A fim de manter a linearidade deste texto (lâmpada, chave, transistor como chave, inversor, ...) apresentarei a construção da célula de memória a partir de inversores. Esta não é a abordagem mais comum.
+
+Uma célula de memória armazena(retém) um bit que pode ser modificado sempre que for desejado. Este funcionamento não pode ser obtido com circuitos combinacionais, embora memórias **somente para leitura** possam ser implementadas somente com circuitos combinacionais, **memórias para leitura e escrita não podem**. 
+
+Existem vários circuitos que podem ser usados para armazenar um bit. O circuito tradicionalmente usado para explicar esse uso é o flip-flop RS: https://en.wikipedia.org/wiki/Flip-flop_%28electronics%29#SR_NOR_latch - sugere-se ler essa referência e retornar a este texto. Alguns conceitos e elaborações implícitas na referência serão explicadas a seguir.
+
+### Historinha...
+
+> The R = S = 1 combination is called a restricted combination or a forbidden state because, as both NOR gates then output zeros, it breaks the logical equation Q = not Q. The combination is also inappropriate in circuits where both inputs may go low simultaneously (i.e. a transition from restricted to keep). The output would lock at either 1 or 0 depending on the propagation time relations between the gates (a race condition). 
+
+Um estudante procurou-me para explicar por que R=S=1 é uma combinação proibida em um FF RS feito com portas NOR. Meu primeiro impulso foi dizer que essa combinação faz o FF oscilar. MAS, aplicando R=S=1 o circuito não oscila (pode testar, seja no papel, seja montando o circuito) e Q=~Q=0, estável. O problema acontece no retorno a R=S=0 (condição de repouso): **a condição Q=~Q=0 e R=S=1 é estável mas a condição Q=~Q=0 e R=S=0 é instável**. Consequentemente, se o circuito for colocado em Q=~Q=0 e R=S=1 e, em seguida, faz-se R=S=0, os sinais mudam rapidamente para uma condição estável. MAS há duas condições estáveis possíveis: (a) Q=0, ~Q=1 e R=S=0 e (b) Q=1, ~Q=0 e R=S=0. Em qual condição (a) ou (b) o circuito chega depende de detalhes não controlados da construção dos componentes e do circuito, ou seja, não se sabe ao certo em que condição o circuito chega.
+
+Não saber em que condição o FF, em operação normal, está, "quebra" a sequência de funcionamentos sobre a qual baseia-se a construção dos computadores atuais. Acho que é motivo suficiente para evitar operar nessa condição :)
+
+### ... voltando ...
+
+A partir do momento em que dispõe-se de circuitos que armazenam bits, a tabela verdade que descreve seu funcionamento deve considerar como variável de entrada o bit que está armazenado e, como variável de saída, o novo bit armazenado. Num FF RS poderia resultar em:
+
+| R | S | bit armazenado ($Q$) | novo bit ($Q$) |
+| --- | --- | --- | --- |
+| 0 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 0 |
+| 1 | 1 | Proibido | Proibido |
+| 0 | 0 | 1 | 1 |
+| 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | Proibido | Proibido |
+
+Acontece que essa tabela não representa bem o funcionamento do circuito - é difícil interpretar e chegar à conclusão que é um FF RS; e contém ambiguidades na notação - tanto o bit armazenado quanto o novo bit são Q, em instantes diferentes, mas a notação não permite codificar diferentes instantes.
+
+Ajusta-se isso empregando tabelas de transição de estados (https://en.wikipedia.org/wiki/State-transition_table). Nestas o bit armazenado é representado por uma letra (no caso acima, $Q$) e, quando ocorre a transição, o novo bit é representado pela mesma letra e subscrito next (como $Q_{next}$)
+
+| R | S | $Q$ | $Q_{next}$) |
+| --- | --- | --- | --- |
+| 0 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 0 |
+| 1 | 1 | Proibido | Proibido |
+| 0 | 0 | 1 | 1 |
+| 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | Proibido | Proibido |
+
+Ainda não é igual à tabela apresentada em https://en.wikipedia.org/wiki/Flip-flop_(electronics)#SR_NOR_latch . É possível construir um algoritmo que leva da tabela acima para a tabela apresentada. À semelhança de simplificação de expressões booleanas, linhas iguais da tabela podem ser agrupadas:
+	
+| R | S | $Q$ | $Q_{next}$) |
+| --- | --- | --- | --- |
+| 0 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 0 |
+| 0 | 0 | 1 | 1 |
+| 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | Proibido | Proibido |
+
+Como R=S=0 é, por construção do circuito, o estado de repouso, então $Q_{next}=Q$
+
+| R | S | $Q$ | $Q_{next}$) |
+| --- | --- | --- | --- |
+| 0 | 0 | 0 | $Q$ |
+| 0 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 0 |
+| 0 | 0 | 1 | $Q$ |
+| 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | Proibido | Proibido |
+
+Como no estado de repouso, $Q_{next}=Q$, independende do valor de $Q$, então as linhas podem ser agrupadas (este tipo de agrupamento só pode ser feito com variáveis de entrada):
+	
+| R | S | $Q$ | $Q_{next}$) |
+| --- | --- | --- | --- |
+| 0 | 0 | X | $Q$ |
+| 0 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 0 |
+| 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | Proibido | Proibido |
+
+Como, por construção do circuito, se S for colocado em 1 então Q vai para 1 independente de R e de Q, as linhas podem ser agrupadas:
+	
+| R | S | $Q$ | $Q_{next}$) |
+| --- | --- | --- | --- |
+| 0 | 0 | X | $Q$ |
+| X | 1 | X | 1 |
+| 1 | 0 | 0 | 0 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | Proibido | Proibido |
+
+Como, por construção do circuito, se R for colocado em 1 então Q vai para 0 independente de S e de Q, as linhas podem ser agrupadas:
+	
+| R | S | $Q$ | $Q_{next}$) |
+| --- | --- | --- | --- |
+| 0 | 0 | X | $Q$ |
+| X | 1 | X | 1 |
+| 1 | X | X | 0 |
+| 1 | 1 | Proibido | Proibido |
+
+Resta que a coluna $Q$ não agrega informação, logo, pode ser omitida.
+
+| R | S | $Q_{next}$) |
+| --- | --- | --- |
+| 0 | 0 | $Q$ |
+| X | 1 | 1 |
+| 1 | X | 0 |
+| 1 | 1 | Proibido |
+
+A tabela acima é a tabela de transição de estados (tabela característica) de um FF RS.
+
+Explicado o FF RS clássico, cabe colocar que há outras implementações do FF RS, por exemplo, usando inversores (portas NOT):
+	
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/SR_Latch_%28Inverter%29.svg/447px-SR_Latch_%28Inverter%29.svg.png)
+Fonte: https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:SR_Latch_(Inverter).svg, referência na Wikipedia: https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%83%E3%83%81%E5%9B%9E%E8%B7%AF
+
+A tabela de transição de estados é a mesma do FF RS clássico. A vantagem deste circuito é que substituindo os inversores pelos circuitos equivalentes com MOSFETs ou com BJTs resulta em:
+
+![](./SomenteInversores2023-04-13-17-01-55.png)
+
+... que já é bastante próximo da célula de memória do capítulo 5 do livro.
+
+... os dois transistores acrescentados fazem parte do circuito lógico de seleção da célula de memória. Seleciona-se a célula colocando o  ponto End em nível lógico 1. Abaixo as células de memória com cada inversor dentro de uma elipse azul. Os transistores que não estão nas elipses implementam a parte do circuito de seleção que fica dentro da célula de memória.
+
+![](./InversoresEmAzul-2023-04-13-16-45-12.png)
+
+
+Numa operação de leitura, colocar End em 1 e ler Bit ou Bit' recupera o conteúdo armazenado.
+
+Numa operação de escrita, colocando um nível lógico em Bit e Bit' e selecionando a célula (End=1) grava o novo bit na célula. 
+
+<!---
+
+As operações que a célula suporta são leitura e escrita. Frequentemente células de memória são organizadas em longos vetores (arrays) e suas entradas/saídas de dados são conectadas juntas em um barramento. Nesta maneira de organizar, torna-se necessário algum circuito lógico para selecionar a célula lida/escrita. Isto é feito com decodificadores e uma ou duas portas AND. Nos texto que li há mais ênfase no processo de retenção do bit que no processo de seleção da célula e no acesso ao bit armazenado(retido).
+
+A célula de memória, fixado um instante no tempo, contém unicamente um bit.
+
+| Seleção | Dado | bit armazenado | novo bit |
+| --- | --- | --- | --- |
+| 0 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 0 |
+| 1 | 0 | 0 | 0 |
+| 1 | 1 | 0 | 1 |
+| 0 | 0 | 1 | 1 |
+| 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | 1 | 1 |
+
+
 
 ![](./photo1679352856.jpeg)
-
-
-Inspiração para circuito de endereçamento: https://www.researchgate.net/figure/Circuit-diagram-of-an-optimized-4H-SiC-4T-SRAM-cell-The-optimized-cell-operates-on-a_fig1_314296600
-
-O circuito com BJT tem uma não conformidade pois as linhas de bit são somente para escrita na célula de memória. A linha de bit da célula de memória costuma ser bidirecional, algo que fica claro no diagrama do livro.
+--->
 
 ## Implementação da célula de memória com BJT
 
 ![](./photo1679353482.jpeg)
+
+Acredito que isto ajude a esclarecer o funcionamento de uma célula de memória. 
+
+### Notas
+
+Inspiração para circuito de endereçamento: https://www.researchgate.net/figure/Circuit-diagram-of-an-optimized-4H-SiC-4T-SRAM-cell-The-optimized-cell-operates-on-a_fig1_314296600
+
+O circuito com BJT tem uma não conformidade pois as linhas de bit são somente para escrita na célula de memória. A linha de bit da célula de memória costuma ser bidirecional, algo que fica claro no diagrama do livro.
 
