@@ -32,6 +32,17 @@ Processadores RISC em geral têm da ordem de 30 OpCodes.
 
 Tentei com OpCodes de 4 bits e endereçamento de memória de 10 bits, mas 14 bits é ruim de separar os sinais (que geralmente são divididos em grupos de 1, 4, 8, 16). Então passei para endereçamento de 12 bits.
 
+### Máquina que acessa conteúdo da memória endereçada sequencialmente por um contador
+
+Meta: Acessar as posições de memória sequencialmente. 
+
+Motivo: Este é o funcionamento da busca de instrução quando não há desvio.
+
+[Circuito em logisim](apenasConta.circ)
+
+![Tela do simulador apresentando o circuito.](./Captura%20de%20tela%20de%202024-04-07%2013-23-50.png)
+
+
 ### Máquina que carrega conteúdo da memória endereçada por um contador em um registrador
 
 Meta: Acessar as posições de memória sequencialmente e carregar o conteúdo armazenado na posição em um registrador. 
