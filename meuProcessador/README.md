@@ -202,4 +202,58 @@ Próximos passos que podem ser interessantes são:
 - Implementar tratamento de interrupções;
 - criar um montador (preferencialmente com uma linguagem de montagem compatível com alguma gerada pelo GCC para que o ASM gerado possa ser passado para este montador, aí passa a ser possível reusar os compiladores de GCC);
 
+## Trabalho em andamento
+
+### Salto condicional
+
+![](./Captura%20de%20tela%20de%202024-04-10%2018-43-45.png)
+
+Salta para o endereço dado junto ao OpCode se o conteúdo do acumulador for 0xFFFF.
+
+Programa exemplo: ./CarregaArmazenaSaltaSeZero2.mem 
+	
+Circuito: ./CarregaArmazenaSaltaSeFFFF2.circ
+
+### Conservar o endereço do comando em caso de salto
+
+(transformará um jump em um call)
+
+![](./Captura%20de%20tela%20de%202024-04-10%2018-48-48.png)
+
+Programa exemplo: ./comSaltoERetorno.mem
+	
+Circuito: 
+
+### retornar ao endereço seguinte ao salto mais recente
+
+(equivale ao RET)
+
+![](./Captura%20de%20tela%20de%202024-04-10%2018-53-12.png)
+
+
+Programa exemplo: ./comSaltoERetorno.mem
+
+Circuito: ./CarregaArmazenaSaltaSeFFFFRegRet3.circ
+
+### Unidade lógica e aritmética
+
+Circuito: ./LogicaEAritmetica-projeto.circ
+
+
+### Operações aritméticas
+
+<!--  \overbrace{bbbb}^{OpCode}\underbrace{bbb}_{AritOpCode}\overbrace{bbb}^{ResultReg}\underbrace{bbb}_{A Operand}\overbrace{b}^{enB}\underbrace{bb}_{B Operand} -->
+
+![](./CodeCogsEqn-Arit.png)
+
+#### Integrando ao circuito de controle (ainda não testado)
+
+![](./Captura%20de%20tela%20de%202024-04-10%2019-02-46.png)
+
+
+Circuito: ./CarregaArmazenaSaltaArit2.circ
+
+### Interrupções
+
+Os sinais de interrupção entrarão no processador pelo registrador PSW. O PSW pode ser copiado para um registrador de uso geral e testado. As interrupções podem ou não ser atendidas, dependendo de como o programa for feito. É diferente das arquiteturas usuais onde atendimento de interrupção corresponde a um dos estados do processador e seu atendimento pode ser desabilitado por máscaras (há um registrador que contém as configurações de que interrupção pode/deve ser atendida).
 
