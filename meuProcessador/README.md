@@ -372,6 +372,7 @@ os comandos 2160 320b (endereço de volta do esr) estão na posição 0x220
 
 *programa testado*
 
+```
 v2.0 raw
 0 1100 6c40 1102 6c05 2050 6c78 1130
 6605 4200 0 6040 6280 0 0 0
@@ -384,8 +385,11 @@ v2.0 raw
 6c80 6cc0 1160 6c40 1153 6805 2220 1151
 3220 1160 6c40 1152 6c05 2160 3204 15*0
 2171 320b
+```
 
 Mnemônicos
+
+```
 NOP
 LDA(100)                     // z=y+x
 ARIT ADD, B, A, zero         // z=y+x
@@ -442,3 +446,4 @@ JMP 204
 
 220: 0000
 JMP 20B
+```
