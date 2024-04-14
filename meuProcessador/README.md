@@ -387,17 +387,17 @@ v2.0 raw
 
 Mnemônicos
 NOP
-LDA(100)
-ARIT ADD, B, A, zero
-LDA(102)
-ARIT ADD, A, A, B 
-STA(050)
-ARIT ADD, B, PSW, zero
-LDA(130)
-ARIT AND, A, A, B
-JNZ 200  // salta para ESR
+LDA(100)                     // z=y+x
+ARIT ADD, B, A, zero         // z=y+x
+LDA(102)                     // z=y+x
+ARIT ADD, A, A, B            // z=y+x
+STA(050)                     // z=y+x
+ARIT ADD, B, PSW, zero       // if (overflow) ESR
+LDA(130)                     // if (overflow) ESR
+ARIT AND, A, A, B            // if (overflow) ESR
+JNZ 200  // salta para ESR   // if (overflow) ESR
 NOP
-ARIT ZERO, B, X, X
+ARIT ZERO, B, X, X           // comandos que não serão executados
 ARIT F, C, X, X
 NOP
 NOP
@@ -410,4 +410,35 @@ STA(050)
 ARIT ADD, A, PSW, zero
 JMP 0
 
-200: LDA(151)
+ beba                        // int y=0xbeba
+ c0ca                        
+ c01a                        // int x=0xc01a
+  501a 4*0 babe
+0 c01a 50fa 4*0 beba c0ca 0 5e1a
+4*0 babe c01a cac0 5*0 cac0 7*0 c01a
+7*0 
+8000                         // #define OVERFLOW_MASK 0x8000 
+c10a ca00 30*0 caca 
+1                            // #define UM 0x0001
+2000                         // #define STA_OPCODE 0x2000
+12*0 172
+200: LDA(151)          // carrega acc com 0xcaca
+ARIT ADD, B, A, zero
+ARIT ADD, C, A, zero
+ARIT ADD, D, A, zero
+204: LDA(160)          // prepara instrução 2000 | *p  do... while (1)
+ARIT ADD, B, A, zero   // prepara instrução 2000 | *p
+LDA(153)               // prepara instrução 2000 | *p
+ARIT OR, A, A, B       // prepara instrução 2000 | *p
+STA(220)               // prepara instrução 2000 | *p
+LDA(151)               // carrega acc com 0xcaca
+JMP 220                // salta para 220
+20B: LDA(160)          //p=p+1
+ARIT ADD, B, A, zero   //p=p+1
+LDA(152)               //p=p+1
+ARIT ADD, A, A, B      //p=p+1
+STA(160)               //p=p+1
+JMP 204
+
+220: 0000
+JMP 20B
