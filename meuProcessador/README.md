@@ -237,12 +237,13 @@ Circuito: ./CarregaArmazenaSaltaSeFFFFRegRet3.circ
 
 ### Unidade lógica e aritmética
 
-Circuito: ./LogicaEAritmetica-projeto.circ
+![](./Captura%20de%20tela%20de%202024-04-14%2011-32-23.png)
 
+Circuito: ./LogicaEAritmetica-projeto.circ
 
 ### Operações aritméticas
 
-<!--  \overbrace{bbbb}^{OpCode}\underbrace{bbb}_{AritOpCode}\overbrace{bbb}^{ResultReg}\underbrace{bbb}_{A Operand}\overbrace{b}^{enB}\underbrace{bb}_{B Operand} -->
+<!--  \overbrace{bbbb}^{OpCode}\underbrace{bbb}_{AritOpCode}\overbrace{bbb}^{ResultReg}\underbrace{bbb}_{First Operand}\overbrace{b}^{enB}\underbrace{bb}_{Second Operand} -->
 
 ![](./CodeCogsEqn-Arit.png)
 
@@ -257,3 +258,156 @@ Circuito: ./CarregaArmazenaSaltaArit2.circ
 
 Os sinais de interrupção entrarão no processador pelo registrador PSW. O PSW pode ser copiado para um registrador de uso geral e testado. As interrupções podem ou não ser atendidas, dependendo de como o programa for feito. É diferente das arquiteturas usuais onde atendimento de interrupção corresponde a um dos estados do processador e seu atendimento pode ser desabilitado por máscaras (há um registrador que contém as configurações de que interrupção pode/deve ser atendida).
 
+## Integração ao circuito de controle testada. PSW testado, mudei JF para JNZ. Funcionando de acordo com o esperado.
+
+![](./Captura%20de%20tela%20de%202024-04-14%2013-12-17.png)
+
+
+Circuito: ./CarregaArmazenaSaltaArit3.circ
+
+### Exemplos de operações aritméticas
+
+// carga do acumulador para um registrador - verificado em 2024-04-11, funcionam
+ARIT ADD, B, A, zero 0110 110 001 000 0 00 = 6C40
+ARIT ADD, C, A, zero 0110 110 010 000 0 00 = 6C80
+ARIT ADD, D, A, zero 0110 110 011 000 0 00 = 6CC0
+ARIT ADD, PSW, A, zero 0110 110 111 000 0 00 = 6DC0 (o PSW não pode ser escrito diretamente!)
+ARIT ADD, *RP, A, zero 0110 110 110 000 0 00 = 6D80
+
+// carga de um registrador para o acumulador - verificado em 2024-04-11, funcionam
+ARIT ADD, A, B, zero 0110 110 000 001 0 00 = 6C08
+ARIT ADD, A, C, zero 0110 110 000 010 0 00 = 6C10
+ARIT ADD, A, D, zero 0110 110 000 011 0 00 = 6C18
+ARIT ADD, A, PSW, zero 0110 110 000 111 0 00 = 6C38
+ARIT ADD, A, *RP, zero 0110 110 000 110 0 00 = 6C30
+
+O programa de teste é: testaMovRegAccEAccReg.mem
+Outro programa de teste: movRegAcc.mem
+nota: zero no operando B corresponde a desabilitar o operando B
+
+ARIT ZERO, A, X, X = 0110 000 000 000 0 000 = 6000  // os operandos não são usados, então podem ARIT ZERO, B, X, X = 0110 000 001 000 0 000 = 6040  // os operandos não são usados, então podem ser quaisquer. Neste caso usei os de bits zero para facilitar a codificação.
+ARIT F, C, X, X = 0110 001 010 000 0 000 = 6280  // os operandos não são usados, então podem ser quaisquer. Neste caso usei os de bits zero para facilitar a codificação.
+
+ARIT ADD, A, A, B 0110 110 000 000 1 01 = 6C05  // acc=acc+B
+ARIT ADD, A, PSW, zero 0110 110 000 111 0 00 = 6C38
+
+até aqui usando o circuito CarregaArmazenaSaltaArit2.circ (deve funcionar igual no CarregaArmazenaSaltaArit3.circ)
+
+a partir daqui usando o circuito CarregaArmazenaSaltaArit3.circ
+
+### Atribuição, operação aritmética e teste de erro
+
+(Permite começar a construir a ligação entre a linguagem da máquina e linguagens de programação mais comuns (como C))
+
+x está no endereço 0x100 e vale 0xbeba = 0b1011111010111010
+y está no endereço 0x102 e vale 0xc01a = 0b1100000000011010
+z está no endereço 0x050 e recebe o resultado
+
+z=y+x deveria ser                                     0b0111 1110 1101 0100 (overflow) = 0x7ed4
+psw=0x8888 = overflow na soma, A<B (ok!)
+salta (para tratamento de erro) se overflow
+
+O programa:  1100 6c40 1102 6c05 2050 6c38
+
+bits do psw= overflow na soma | underflow na subtração | A>B | A=B | A<B 0010001000
+
+como os sinais de controle de LDA e STA são diferentes de ARIT (em especial no decodificador de instruções), LDA e STA não alteram o conteúdo do PSW, logo, é possível intercalar operações aritméticas com STA e não perder o conteúdo de PSW. Isto é interessante para conservar o resultado de uma conta e, em seguida, checar o que ocorreu (ex. overflow).
+
+programa completo em initEPSW.mem
+circuito: CarregaArmazenaSaltaArit3.circ
+
+**próximas metas**
+
+- Testa se ocorreu overflow
+- Salta para tratamento de erro
+- Copia de array (alocação dinâmica)
+- Chamada recursiva (pilha de execução)
+
+2024-04-14T095853
+
+Salto se não zero parece mais conveniente que salto se zero pois as condições (que acho) mais frequentes para testes são armazenadas em bits no PSW e, se verdadeiras, setam o bit, então PSW será diferente de zero. (ajuste feito em CarregaArmazenaSaltaArit3.circ)
+
+... acrescentando um teste ao programa:
+
+x está no endereço 0x100 e vale 0xbeba = 0b1011111010111010
+y está no endereço 0x102 e vale 0xc01a = 0b1100000000011010
+z está no endereço 0x050 e recebe o resultado
+
+psw=0x8888 = overflow na soma, A<B (ok!)
+salta (para tratamento de erro) se overflow
+
+ARIT ADD, B, PSW, zero 0110 110 001 111 0 00 = 6C78
+
+O programa:  1100 6c40 1102 6c05 2050 6c78
+
+a constante 8000 está armazenada em 0x130
+
+... 1130 
+
+ARIT AND, A, A, B 0110 011 000 000 1 01 = 6605
+JNZ 200
+
+... 4200
+
+esr:
+
+a constante 0xcaca está na posição 0x151
+a constane 0x0001 está na posição 0x152
+a constante 0x2000 está na posição 0x153
+
+1151  6C40 6C80 6CC0 
+
+1160 6c40 1153 6805 2220 (instrução para armazenar o valor do acumulador no endereço apontado por p) 1151 (poe caca no acumulador) 3220 (salta para função que armazena conteúdo do acc em 170) 1160 6C40 1152 6C05 2160 3204
+
+ARIT OR, A, A, B 0110 100 000 000 1 01 = 6805
+ARIT ADD, B, A, zero 0110 110 001 000 0 00 = 6C40
+ARIT ADD, B, A, B 0110 110 001 000 1 01 = 6C45
+ARIT ADD, C, A, zero 0110 110 010 000 0 00 = 6C80
+ARIT ADD, D, A, zero 0110 110 011 000 0 00 = 6CC0
+
+ARIT ADD, A, A, B 0110 110 000 000 1 01 = 6C05  // acc=acc+B
+
+a variável p está na posição 0x160 e contém 0x170
+os comandos 2160 320b (endereço de volta do esr) estão na posição 0x220
+
+*programa testado*
+
+v2.0 raw
+0 1100 6c40 1102 6c05 2050 6c78 1130
+6605 4200 0 6040 6280 0 0 0
+1100 6c40 1102 6c05 2050 6c38 3000 57*0
+7ed4 175*0 beba c0ca c01a 501a 4*0 babe
+0 c01a 50fa 4*0 beba c0ca 0 5e1a
+4*0 babe c01a cac0 5*0 cac0 7*0 c01a
+7*0 8000 c10a ca00 30*0 caca 1 2000
+12*0 172 15*0 caca caca 142*0 1151 6c40
+6c80 6cc0 1160 6c40 1153 6805 2220 1151
+3220 1160 6c40 1152 6c05 2160 3204 15*0
+2171 320b
+
+Mnemônicos
+NOP
+LDA(100)
+ARIT ADD, B, A, zero
+LDA(102)
+ARIT ADD, A, A, B 
+STA(050)
+ARIT ADD, B, PSW, zero
+LDA(130)
+ARIT AND, A, A, B
+JNZ 200  // salta para ESR
+NOP
+ARIT ZERO, B, X, X
+ARIT F, C, X, X
+NOP
+NOP
+NOP
+LDA(100)
+ARIT ADD, B, A, zero
+LDA(102)
+ARIT ADD, A, A, B
+STA(050)
+ARIT ADD, A, PSW, zero
+JMP 0
+
+200: LDA(151)
