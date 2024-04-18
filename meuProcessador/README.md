@@ -202,9 +202,9 @@ Próximos passos que podem ser interessantes são:
 - Implementar tratamento de interrupções;
 - criar um montador (preferencialmente com uma linguagem de montagem compatível com alguma gerada pelo GCC para que o ASM gerado possa ser passado para este montador, aí passa a ser possível reusar os compiladores de GCC);
 
-## Trabalho em andamento
-
 ### Salto condicional
+
+**descontinuado, mantido com a finalidade de registro.** Notei, posteriormente, que o salto condicionais mais útil é o caso em que ACC é diferente de ZERO pois os resultados dos testes sempre(?) ativam bits (nível lógico UM) no PSW. Mascarar os bits corresponde a pelo menos um bit do PSW copiado no resultado. Se esse bit for ZERO, o resultado todo é zero, se esse bit for UM, o resultado todo é diferente de zero.
 
 ![](./Captura%20de%20tela%20de%202024-04-10%2018-43-45.png)
 
@@ -254,7 +254,7 @@ Circuito: ./LogicaEAritmetica-projeto.circ
 
 Circuito: ./CarregaArmazenaSaltaArit2.circ
 
-### Interrupções
+### Interrupções (ainda não operacional em 17.04.2024)
 
 Os sinais de interrupção entrarão no processador pelo registrador PSW. O PSW pode ser copiado para um registrador de uso geral e testado. As interrupções podem ou não ser atendidas, dependendo de como o programa for feito. É diferente das arquiteturas usuais onde atendimento de interrupção corresponde a um dos estados do processador e seu atendimento pode ser desabilitado por máscaras (há um registrador que contém as configurações de que interrupção pode/deve ser atendida).
 
@@ -449,3 +449,19 @@ JMP 204
 220: 0000
 JMP 20B
 ```
+
+O programa inicializa as constantes e aloca três variáveis (x, y, z). Inicializa x com 0xbeba e y com 0xco1a. Calcula a soma e armazena em z. Essa soma causa *overflow*. O PSW é lido e o bit de *overflow* é selecionado com o uso de uma máscara de bits. Caso o resultado seja diferente de zero, salta para a rotina de tratamento de erro (esr). A rotina de tratamento de erro preenche todos os registradores de uso geral com 0xcaca e executa um loop que a partir do endereço armazenado no endereço 0x160, preenche as palavras com 0xcaca. Em algum momento a rotina de tratamento de erro será sobrescrita.
+
+
+
+| OpCode  | Mnemônico | Descrição |
+| ------  | --------- | --------- |
+| (0000)b | NOP       | Não operação |
+| (0001)b | LDA(X)    | Carrega conteúdo do acumulador com conteúdo armazenado no endereço X da memória |
+| (0010)b | STA(X)    | Armazena no endereço X da memória o conteúdo do acumulador |
+| (0011)b | JMP X     | Armazena o próximo endereço sequencial no registrador R e **salta** execução para instrução armazenada no endereço X da memória |
+| (0100)b | JNZ X     | Se o acumulador for diferente de zero, armazena o próximo endereço sequencial no registrador R e salta execução para instrução armazenada no endereço X da memória |
+| (0101)b | RET       | Armazena o próximo endereço sequencial no registrador R e **salta** execução para endereço armazenado no registrador R |
+| (0110)b | ARIT     | Executa operação aritmética a atualiza registrador PSW |
+
+*Documento finalizado*: Este documento não receberá mais atualizações até ser remodelado
