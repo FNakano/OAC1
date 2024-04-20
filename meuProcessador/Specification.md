@@ -247,3 +247,11 @@ Formato de entrega: Envie apenas EP1.c através do e-disciplinas.
 
 Método de teste: Diferentes `driverEP1.c` serão usados com diferentes conteúdos de memória. Depois da execução do programa o conteúdo da memória será comparado com o modelo de resposta (que resulta da execução do mesmo programa no simulador do logisim).
 
+## Tarefa (Exercício-Programa 2)
+
+Escolher uma arquitetura (ou usar alguma de algum computador que tenha acesso) e que tenha um compilador que gere assembly (como o gcc -S), tomar `ep2-1.c`  `ep2-2.c`  `ep2-3.c`, fragmentos simples de código, localizar as correspondências entre o código em C (declaração de variáveis, atribuições, comandos, chamadas de função) e os comandos dos respectivos códigos em assembly. Escreva um relatório apresentando as correspondências.
+
+## Tarefa (Exercício-Programa 3)
+
+Escrever um algoritmo de ordenação para ser executado no simulador de processador. Sugestão, usar um algoritmo simples como *insertion sort*, com implementação sem chamadas recursivas. Um recurso que pode ser usado é escrever o programa em C, compilar para a arquitetura que você estudou no EP2 e fazer as correspondências do assembly da arquitetura que você usou no EP2 para o assembly do simulador de processador (https://github.com/FNakano/OAC1/blob/main/meuProcessador/CarregaArmazenaSaltaArit4.circ)
+
