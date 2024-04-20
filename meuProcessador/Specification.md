@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-Este é um (simulador de) processador de 16 bits e sua memória principal de 4k palavras (8kBytes). O arquivo-fonte do simulador é https://github.com/FNakano/OAC1/blob/main/meuProcessador/CarregaArmazenaSaltaArit3.circ . O arquivo-fonte deve ser executado no [logisim](http://www.cburch.com/logisim/). Um programa para demonstração, usado no desenvolvimento do processador é https://github.com/FNakano/OAC1/blob/main/meuProcessador/overflowEesr-testado.mem . O passo a passo do desenvolvimento e a explicação do exemplo estão em https://github.com/FNakano/OAC1/tree/main/meuProcessador . 
+Este é um (simulador de) processador de 16 bits e sua memória principal de 4k palavras (8kBytes). O arquivo-fonte do simulador é https://github.com/FNakano/OAC1/blob/main/meuProcessador/CarregaArmazenaSaltaArit4.circ . O arquivo-fonte deve ser executado no [logisim](http://www.cburch.com/logisim/). Um programa para demonstração, usado no desenvolvimento do processador é https://github.com/FNakano/OAC1/blob/main/meuProcessador/comHalt.mem . O passo a passo do desenvolvimento e a explicação do exemplo estão em https://github.com/FNakano/OAC1/tree/main/meuProcessador . 
 
 A comunicação entre processador e memória é feita por um barramento de endereços de 12 bits, barramento de dados de 16 bits e sinais de controle.
 
@@ -28,8 +28,9 @@ A notação dos números é (*big endian*) ié,  MSB primeiro.
 | (0100)b | JNZ X     | Se o acumulador for diferente de zero, armazena o próximo endereço sequencial no registrador R e salta execução para instrução armazenada no endereço X da memória |
 | (0101)b | RET       | Armazena o próximo endereço sequencial no registrador R e **salta** execução para endereço armazenado no registrador R |
 | (0110)b | ARIT     | Executa operação aritmética a atualiza registrador PSW |
+| (1111)b | HALT     | Para o processador ("desabilita o clock"). Sua necessidade (didática) tornou-se clara para encerrar o simulador do EP1. CarregaArmazenaSaltaArit4.circ tem o circuito que implementa HALT, CarregaArmazenaSaltaArit3.circ não tem o circuito. |
 
-Formato das instruções LDA, STA, JMP, JNZ:
+Formato das instruções LDA, STA, JMP, JNZ, HALT:
 
 ![](./Captura%20de%20tela%20de%202024-04-17%2018-58-32.png)
 
@@ -233,4 +234,16 @@ c10a ca00 30*0 caca
 ```
 
 O programa inicializa as constantes e aloca três variáveis (x, y, z). Inicializa x com 0xbeba e y com 0xco1a. Calcula a soma e armazena em z. Essa soma causa *overflow*. O PSW é lido e o bit de *overflow* é selecionado com o uso de uma máscara de bits. Caso o resultado seja diferente de zero, salta para a rotina de tratamento de erro (esr). A rotina de tratamento de erro preenche todos os registradores de uso geral com 0xcaca e executa um loop que a partir do endereço armazenado no endereço 0x160, preenche as palavras com 0xcaca. Em algum momento a rotina de tratamento de erro será sobrescrita.
+
+## Tarefa (Exercício-Programa 1)
+
+Escrever um programa em C que simula o simulador de processador a partir de `driverEP1.c` e `EP1.c`.
+
+`driverEP1.c` contém funções para leitura e escrita dos *dumps* de memória RAM do logisim. Os protótipos das funções estão em `driverEP1.h`. Este arquivo de header contém também `processa(...)` o protótipo da função que simula o processador. Um esboço da implementação da função `processa(...)` é apresentado em `EP1.c`. O comando HALT está implementado.
+
+Para compilar o exemplo faça `gcc driverEP1.c EP1.c`.
+
+Formato de entrega: Envie apenas EP1.c através do e-disciplinas.
+
+Método de teste: Diferentes `driverEP1.c` serão usados com diferentes conteúdos de memória. Depois da execução do programa o conteúdo da memória será comparado com o modelo de resposta (que resulta da execução do mesmo programa no simulador do logisim).
 
