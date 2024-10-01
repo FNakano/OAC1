@@ -18,3 +18,5 @@ Material Adicional da disciplina OAC-1.
 
 [Processador didático expandido com registradores e instrução de transferência entre registradores, com circuitos em logisim](meuProcessadorComRegistradores)
 
+[Emulador, montador e solução dos EPs, por André Morales](https://github.com/andre-morales/emulador-oac)
+
