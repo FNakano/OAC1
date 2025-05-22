@@ -395,4 +395,12 @@ Compare o assembly gerado por gcc para x86 e para exynos2400e (ARM) na compilaç
 
 [arquivo assembly para exynos2400e (ARM)](./busca-4.s.exy)- compilado com clang version 19.1.7 target aarch64-unknown-linux-android29 thread model: posix, executado dentro do Termux versão googleplay.2025.01.18
 
+Compare os executáveis gerados por gcc para x86 e para exynos2400e (ARM) na compilação de `busca-4.c` (abra com um editor hexadecimal, por exemplo, no linux, hexedit)
+
+[arquivo assembly para x86](./busca-4.x86) - compilado com gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+
+[arquivo assembly para exynos2400e (ARM)](./busca-4.exy)- compilado com clang version 19.1.7 target aarch64-unknown-linux-android29 thread model: posix, executado dentro do Termux versão googleplay.2025.01.18
+
+
+
 
