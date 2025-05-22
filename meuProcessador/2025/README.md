@@ -306,7 +306,7 @@ int main () {
 ```
 
 
-No processador `a==c` é computado quando `a` e `c` são operandos de uma operação aritmética qualquer, o resultado da comparação é armazenado no PSW e deve ser lido para o acumulador na operação seguinte.
+No processador `A==C` é computado quando `A` e `C` são operandos de uma operação aritmética qualquer, o resultado da comparação é armazenado no PSW e deve ser lido para o acumulador na operação seguinte.
 
 Resolvendo posição das constantes na memória: P fica no endereço 0x150, SENTINELA no endereço 0x151, UM no endereço 0x152. A máscara para o flag de `==` é 0x1000, armazenado no endereço 0x153.
 
@@ -314,29 +314,29 @@ Traduzindo para assembly (ié linguagem de montagem)
 
 ```
 LDA 150
-ADD d a ZERO
+ADD D A ZERO
 LDA 151
-ADD c a ZERO
+ADD C A ZERO
 
-JMP 170
-ADD b a c 
-ADD b PSW ZERO
+JMP 170    // executa palavra armazenada no endereço 170
+ADD B A C 
+ADD B PSW ZERO
 LDA 153    // MASCARA DO ==
-AND a b a
+AND A B A
 JNZ 160
 
-JMP 170
-ADD b a d 
-ADD b PSW ZERO
+JMP 170    // executa palavra armazenada no endereço 170
+ADD B A D 
+ADD B PSW ZERO
 LDA 153     // MASCARA DO ==
-AND a b a
+AND A B C
 JNZ 160
 
 LDA 152
-ADD b a ZERO
+ADD B A ZERO
 LDA 170
-ADD a a b
-STA 170
+ADD A A B
+STA 170    // armazena o valor contido em A no endereço 170
 
 JMP 004
 ```
@@ -344,7 +344,7 @@ JMP 004
 No endereço 170 a rotina (função) que lê um elemento do array e armazena no acumulador
 
 ```
-LDA 100
+LDA 100    // a palavra correspondente a esta instrução é dado ou é instrução?
 RET
 ```
 
