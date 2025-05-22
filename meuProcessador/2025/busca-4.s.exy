@@ -1,0 +1,181 @@
+	.text
+	.file	"busca-4.c"
+	.globl	main                            // -- Begin function main
+	.p2align	2
+	.type	main,@function
+main:                                   // @main
+	.cfi_startproc
+// %bb.0:
+	sub	sp, sp, #32
+	.cfi_def_cfa_offset 32
+	stp	x29, x30, [sp, #16]             // 16-byte Folded Spill
+	add	x29, sp, #16
+	.cfi_def_cfa w29, 16
+	.cfi_offset w30, -8
+	.cfi_offset w29, -16
+	stur	wzr, [x29, #-4]
+	adrp	x8, a
+	mov	w9, #8468                       // =0x2114
+	strh	w9, [x8, :lo12:a]
+	ldrh	w9, [x8, :lo12:a]
+	adrp	x10, d
+	strh	w9, [x10, :lo12:d]
+	strh	wzr, [x8, :lo12:a]
+	ldrh	w8, [x8, :lo12:a]
+	adrp	x9, c
+	strh	w8, [x9, :lo12:c]
+	b	.LBB0_1
+.LBB0_1:                                // =>This Inner Loop Header: Depth=1
+	adrp	x8, i
+	ldrsh	x9, [x8, :lo12:i]
+	adrp	x8, v
+	add	x8, x8, :lo12:v
+	ldr	w9, [x8, x9, lsl #2]
+	adrp	x8, a
+	strh	w9, [x8, :lo12:a]
+	ldrsh	w8, [x8, :lo12:a]
+	adrp	x9, c
+	ldrsh	w9, [x9, :lo12:c]
+	subs	w8, w8, w9
+	b.ne	.LBB0_3
+	b	.LBB0_2
+.LBB0_2:
+	b	.LBB0_7
+.LBB0_3:                                //   in Loop: Header=BB0_1 Depth=1
+	adrp	x8, i
+	ldrsh	x9, [x8, :lo12:i]
+	adrp	x8, v
+	add	x8, x8, :lo12:v
+	ldr	w9, [x8, x9, lsl #2]
+	adrp	x8, a
+	strh	w9, [x8, :lo12:a]
+	ldrsh	w8, [x8, :lo12:a]
+	adrp	x9, d
+	ldrsh	w9, [x9, :lo12:d]
+	subs	w8, w8, w9
+	b.ne	.LBB0_5
+	b	.LBB0_4
+.LBB0_4:
+	b	.LBB0_7
+.LBB0_5:                                //   in Loop: Header=BB0_1 Depth=1
+	mov	w9, #1                          // =0x1
+	adrp	x8, a
+	strh	w9, [x8, :lo12:a]
+	ldrh	w9, [x8, :lo12:a]
+	adrp	x11, b
+	strh	w9, [x11, :lo12:b]
+	adrp	x9, i
+	ldrh	w10, [x9, :lo12:i]
+	strh	w10, [x8, :lo12:a]
+	ldrsh	w10, [x8, :lo12:a]
+	ldrsh	w11, [x11, :lo12:b]
+	add	w10, w10, w11
+	strh	w10, [x8, :lo12:a]
+	ldrh	w8, [x8, :lo12:a]
+	strh	w8, [x9, :lo12:i]
+	b	.LBB0_6
+.LBB0_6:                                //   in Loop: Header=BB0_1 Depth=1
+	mov	w8, #1                          // =0x1
+	tbnz	w8, #0, .LBB0_1
+	b	.LBB0_7
+.LBB0_7:
+	adrp	x8, i
+	ldrsh	w1, [x8, :lo12:i]
+	adrp	x0, .L.str
+	add	x0, x0, :lo12:.L.str
+	bl	printf
+	ldur	w0, [x29, #-4]
+	.cfi_def_cfa wsp, 32
+	ldp	x29, x30, [sp, #16]             // 16-byte Folded Reload
+	add	sp, sp, #32
+	.cfi_def_cfa_offset 0
+	.cfi_restore w30
+	.cfi_restore w29
+	ret
+.Lfunc_end0:
+	.size	main, .Lfunc_end0-main
+	.cfi_endproc
+                                        // -- End function
+	.type	v,@object                       // @v
+	.data
+	.globl	v
+	.p2align	2, 0x0
+v:
+	.word	15796                           // 0x3db4
+	.word	823                             // 0x337
+	.word	2232                            // 0x8b8
+	.word	10801                           // 0x2a31
+	.word	10733                           // 0x29ed
+	.word	10694                           // 0x29c6
+	.word	4223                            // 0x107f
+	.word	6425                            // 0x1919
+	.word	14521                           // 0x38b9
+	.word	14877                           // 0x3a1d
+	.word	13680                           // 0x3570
+	.word	14235                           // 0x379b
+	.word	14700                           // 0x396c
+	.word	12343                           // 0x3037
+	.word	4029                            // 0xfbd
+	.word	2581                            // 0xa15
+	.word	5079                            // 0x13d7
+	.word	3568                            // 0xdf0
+	.word	11970                           // 0x2ec2
+	.word	79                              // 0x4f
+	.word	8468                            // 0x2114
+	.word	5383                            // 0x1507
+	.word	13199                           // 0x338f
+	.word	9789                            // 0x263d
+	.word	15364                           // 0x3c04
+	.word	6823                            // 0x1aa7
+	.word	4422                            // 0x1146
+	.word	5937                            // 0x1731
+	.word	104                             // 0x68
+	.word	761                             // 0x2f9
+	.word	7552                            // 0x1d80
+	.word	0                               // 0x0
+	.size	v, 128
+
+	.type	i,@object                       // @i
+	.bss
+	.globl	i
+	.p2align	1, 0x0
+i:
+	.hword	0                               // 0x0
+	.size	i, 2
+
+	.type	a,@object                       // @a
+	.globl	a
+	.p2align	1, 0x0
+a:
+	.hword	0                               // 0x0
+	.size	a, 2
+
+	.type	d,@object                       // @d
+	.globl	d
+	.p2align	1, 0x0
+d:
+	.hword	0                               // 0x0
+	.size	d, 2
+
+	.type	c,@object                       // @c
+	.globl	c
+	.p2align	1, 0x0
+c:
+	.hword	0                               // 0x0
+	.size	c, 2
+
+	.type	b,@object                       // @b
+	.globl	b
+	.p2align	1, 0x0
+b:
+	.hword	0                               // 0x0
+	.size	b, 2
+
+	.type	.L.str,@object                  // @.str
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.L.str:
+	.asciz	"%x\n"
+	.size	.L.str, 4
+
+	.ident	"clang version 19.1.7"
+	.section	".note.GNU-stack","",@progbits

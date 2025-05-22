@@ -1,0 +1,166 @@
+	.file	"busca-4.c"
+	.text
+	.globl	v
+	.data
+	.align 32
+	.type	v, @object
+	.size	v, 128
+v:
+	.long	15796
+	.long	823
+	.long	2232
+	.long	10801
+	.long	10733
+	.long	10694
+	.long	4223
+	.long	6425
+	.long	14521
+	.long	14877
+	.long	13680
+	.long	14235
+	.long	14700
+	.long	12343
+	.long	4029
+	.long	2581
+	.long	5079
+	.long	3568
+	.long	11970
+	.long	79
+	.long	8468
+	.long	5383
+	.long	13199
+	.long	9789
+	.long	15364
+	.long	6823
+	.long	4422
+	.long	5937
+	.long	104
+	.long	761
+	.long	7552
+	.long	0
+	.globl	i
+	.bss
+	.align 2
+	.type	i, @object
+	.size	i, 2
+i:
+	.zero	2
+	.globl	a
+	.align 2
+	.type	a, @object
+	.size	a, 2
+a:
+	.zero	2
+	.globl	b
+	.align 2
+	.type	b, @object
+	.size	b, 2
+b:
+	.zero	2
+	.globl	c
+	.align 2
+	.type	c, @object
+	.size	c, 2
+c:
+	.zero	2
+	.globl	d
+	.align 2
+	.type	d, @object
+	.size	d, 2
+d:
+	.zero	2
+	.section	.rodata
+.LC0:
+	.string	"%x\n"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movw	$8468, a(%rip)
+	movzwl	a(%rip), %eax
+	movw	%ax, d(%rip)
+	movw	$0, a(%rip)
+	movzwl	a(%rip), %eax
+	movw	%ax, c(%rip)
+.L5:
+	movzwl	i(%rip), %eax
+	cwtl
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	v(%rip), %rax
+	movl	(%rdx,%rax), %eax
+	movw	%ax, a(%rip)
+	movzwl	a(%rip), %edx
+	movzwl	c(%rip), %eax
+	cmpw	%ax, %dx
+	je	.L7
+	movzwl	i(%rip), %eax
+	cwtl
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	v(%rip), %rax
+	movl	(%rdx,%rax), %eax
+	movw	%ax, a(%rip)
+	movzwl	a(%rip), %edx
+	movzwl	d(%rip), %eax
+	cmpw	%ax, %dx
+	je	.L8
+	movw	$1, a(%rip)
+	movzwl	a(%rip), %eax
+	movw	%ax, b(%rip)
+	movzwl	i(%rip), %eax
+	movw	%ax, a(%rip)
+	movzwl	a(%rip), %eax
+	movl	%eax, %edx
+	movzwl	b(%rip), %eax
+	addl	%edx, %eax
+	movw	%ax, a(%rip)
+	movzwl	a(%rip), %eax
+	movw	%ax, i(%rip)
+	jmp	.L5
+.L7:
+	nop
+	jmp	.L3
+.L8:
+	nop
+.L3:
+	movzwl	i(%rip), %eax
+	cwtl
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+	.section	.note.gnu.property,"a"
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	"GNU"
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:

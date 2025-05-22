@@ -354,6 +354,8 @@ No endereço 160 a rotina (função) que para o processamento pois encontrou p o
 HALT
 ```
 
+**Veja seção bônus!!**
+
 ## Passo 5
 
 Converter cada linha do programa em assembly para o correspondente código da instrução em linguagem de máquina.
@@ -385,4 +387,12 @@ df0 2ec2 4f 2114 1507 338f 263d 3c04
 
 ```
 
-O processador usado é CarregaArmazenaSaltaArit5.circ
+## Bônus
+
+Compare o assembly gerado por gcc para x86 e para exynos2400e (ARM) na compilação de `busca-4.c`
+
+[arquivo assembly para x86](./busca-4.s.x86) - compilado com gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+
+[arquivo assembly para exynos2400e (ARM)](./busca-4.s.exy)- compilado com clang version 19.1.7 target aarch64-unknown-linux-android29 thread model: posix, executado dentro do Termux versão googleplay.2025.01.18
+
+
