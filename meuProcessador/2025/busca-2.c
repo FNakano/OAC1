@@ -17,6 +17,6 @@ int main () {
    while ((v[i]!=SENTINELA) && (v[i]!=P)) {
       i++;
    }
-   // detalhes adicionais: se o valor procurado (p) não estiver no array v, ao final da execução i conterá n+1 onde n é o comprimento do array.
+   // detalhes adicionais: ao final da execução i conterá ou a posição de p ou a posição de SENTINELA.
    printf ("%x\n", i);  // no processador, inspecionar o registrador ou posição de memória.
 }
