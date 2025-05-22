@@ -401,6 +401,7 @@ Compare os executáveis gerados por gcc para x86 e para exynos2400e (ARM) na com
 
 [arquivo assembly para exynos2400e (ARM)](./busca-4.exy)- compilado com clang version 19.1.7 target aarch64-unknown-linux-android29 thread model: posix, executado dentro do Termux versão googleplay.2025.01.18
 
+Pergunta com resposta óbvia(?) Por que o assembly/executável do `busca-4` é tão mais extenso e complicado do que o `busca-5.mem`? Resposta: porque os processadores (x86, exynos) são mais complicados, têm mais funcionalidades e têm um sistema operacional sendo executado. Agora faz todo sentido (para mim) ir para [boot syscall e ELF](https://github.com/FNakano/OAC1/tree/main/BooteSyscall)
 
 
 
