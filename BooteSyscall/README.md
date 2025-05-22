@@ -1,4 +1,4 @@
-# Boot e syscall
+# Boot e syscall e formato executável ELF
 
 Este é um texto em construção (2025-05-13) mas uso como material da disciplina.
 
@@ -28,6 +28,9 @@ https://developer.arm.com/documentation/102374/0102/System-calls
 https://github.com/0xAX/linux-insides/blob/master/SysCall/linux-syscall-1.md
 https://github.com/0xAX/linux-insides/tree/master
 
+## ELF
+
+https://en.wikipedia.org/wiki/Executable_and_Linkable_Format
 
 ## Malware
 
